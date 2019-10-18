@@ -17,7 +17,9 @@ class Consumer():
 		self._CONNECTION_ID = uuid.uuid1()
 		self._socketSelector = selectors.DefaultSelector()
 		self._messageHandler = MessageHandler()
+		self._start_connection()
 
+	def _start_connection(self):
 		broker_addr = (self._BINDING_IP, self._BINDING_PORT)
 		print('starting connection', self._CONNECTION_ID, 'to', broker_addr)
 		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -57,5 +59,6 @@ class Consumer():
 				self._socketSelector.unregister(sock)
 				sock.close()
 
-c = Consumer()
+if __name__ == "__main__":
+	c = Consumer()
 
